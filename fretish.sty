@@ -5,12 +5,16 @@
 % update ML: 14/12/22
 % update ML: 11/01/23
 % update ML: 22/01/23
+% update ML: 08/04/24
+% update ML: 18/02/25 (adding more comments)
 % 
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesPackage{fretish}
   [2023/01/23 v0.2 LaTeX package for typeseting FRETISH]
 
 \RequirePackage{xspace}
+\RequirePackage{xifthen}
+
 % To make the starred version work
 \usepackage{suffix}
 
@@ -27,15 +31,19 @@
 \definecolor{ForestGreen}{rgb}{0.0,0.4,0.0}
 \definecolor{Mahogany}{rgb}{0.75, 0.25, 0.0}
 
+% Individual commands to typeset each field name
 \newcommand{\Condition}{{\texttt{\textcolor{orange}{condition}}}\xspace}
 \newcommand{\Component}{{\texttt{\textcolor{ForestGreen}{component}}}\xspace}
 \newcommand{\Response}{{\texttt{\textcolor{violet}{response}}}\xspace}
 \newcommand{\Timing}{{\texttt{\textcolor{cyan}{timing}}}\xspace}
 \newcommand{\Scope}{{\texttt{\textcolor{Mahogany}{scope}}}\xspace}
 
+% Commands to output the list of fields
 \newcommand{\fretishComponents}{\Scope{} \ \Condition{} \ \Component{}\ \allowbreak shall  \ \Timing{}\  \Response{}}
 \newcommand{\fretishComponentsSmall}{{\small\Scope{} \ \Condition{} \ \Component{}\ \allowbreak shall  \ \Timing{}\  \Response{}}}
 
+% Commands to typeset each field, e.g. \condition{if var > 10}
+% \response{} contains the word satisfy, use \response* if you don't want it
 \newcommand{\condition}[1]{{\textcolor{orange}{\texttt{#1}}}\xspace}
 \newcommand{\component}[1]{{\textcolor{ForestGreen}{\texttt{#1}}}\xspace}
 \newcommand{\response}[1]{{\textcolor{violet}{\texttt{satisfy} \texttt{#1}}}}
@@ -43,6 +51,8 @@
 \newcommand{\timing}[1]{{\textcolor{cyan}{\texttt{#1}}}\xspace}
 \newcommand{\scope}[1]{{\textcolor{Mahogany}{in \texttt{#1} mode}}\xspace}
 
+% Combined command for each field. If you have nothing to include for a given field, just use {}, e.g. \frettext{}{}{system}{}{shutdown} for "system shall satisfy shutdown".
+\newcommand{\frettext}[5]{\ifthenelse{\isempty{#1}}{}{\scope{#1}\ }\ifthenelse{\isempty{#2}}{}{\condition{#2}\ }\component{#3}\ \allowbreak shall \ \ifthenelse{\isempty{#4}}{}{\timing{#4}\ }\response{#5}}
 
 \endinput
 %%
