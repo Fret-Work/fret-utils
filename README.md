@@ -1,5 +1,5 @@
 # FRET-Utils
-#### Matt Luckcuck and Marie Farrell
+#### Matt Luckcuck
 
 ## fretish.sty
 
